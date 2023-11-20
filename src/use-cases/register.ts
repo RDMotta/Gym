@@ -9,6 +9,7 @@ export type TRegisterUseCase = {
     password: string
 }
 
+
 export class RegisterUseCase {
 
     constructor(private usersRepository: IUsersRepository) { }
@@ -25,7 +26,7 @@ export class RegisterUseCase {
 
         const password_hash = await hash(password, 10);
 
-        await this.usersRepository.create({
+        return await this.usersRepository.create({
             name,
             email,
             password_hash,

@@ -1,5 +1,7 @@
 
+import { IUsersRepository } from "@/infra/users-repository";
 import { hash } from "bcryptjs";
+import { UserAlreadyExistsError } from "./errors/email-exists-error";
 
 export type TRegisterUseCase = {
     name: string,
@@ -9,7 +11,7 @@ export type TRegisterUseCase = {
 
 export class RegisterUseCase {
 
-    constructor(private usersRepository: any) { }
+    constructor(private usersRepository: IUsersRepository) { }
 
     async execute(params: TRegisterUseCase) {
 
@@ -18,7 +20,7 @@ export class RegisterUseCase {
         const existsEmail = await this.usersRepository.findUnique({ email });
 
         if (existsEmail) {
-            throw new Error('e-mail already exists.')
+            throw new UserAlreadyExistsError()
         }
 
         const password_hash = await hash(password, 10);

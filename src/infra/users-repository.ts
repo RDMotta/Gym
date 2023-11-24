@@ -1,6 +1,10 @@
 import type { Prisma, User } from "@prisma/client";
 
+export type TUserCreate = Prisma.UserCreateInput;
+export type TUserWhere = Prisma.UserWhereUniqueInput;
+export type TUser = User;
+
 export interface IUsersRepository {
-    create(data: Prisma.UserCreateInput): Promise<User>
-    findUnique(data: Prisma.UserWhereUniqueInput): Promise<User | null>
+    create(data: TUserCreate): Promise<TUser>
+    findUnique(data: TUserWhere): Promise<TUser | null>
 }

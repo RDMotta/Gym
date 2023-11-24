@@ -11,7 +11,7 @@ describe('Use case register', () => {
 
         const user = await registerUseCase.execute({
             name: 'Robson',
-            email: 'email2@email.com',
+            email: 'email28@email.com',
             password: '123456'
         })
 

@@ -1,9 +1,8 @@
-import type { Prisma, User } from '@prisma/client';
-import { IUsersRepository } from "../users-repository";
+import { IUsersRepository, TUser, TUserCreate, TUserWhere } from "../users-repository";
 
 export class InMemoryRepository implements IUsersRepository {
-    public items: User[] = []
-    async create(data: Prisma.UserCreateInput) {
+    public items: TUser[] = []
+    async create(data: TUserCreate) {
         const user = {
             id: 'new-user-1',
             name: data.name,
@@ -15,7 +14,7 @@ export class InMemoryRepository implements IUsersRepository {
         return user
     }
 
-    async findUnique(data: Prisma.UserWhereUniqueInput) {
+    async findUnique(data: TUserWhere) {
         const { email } = data;
         const user = this.items.find((item) => item.email === email)
         if (!user) {
